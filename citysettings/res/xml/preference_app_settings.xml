@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  	xmlns:android="http://schemas.android.com/apk/res/android">
+  	<PreferenceScreen android:title="默认城市设置" android:key="config_city_default" android:summary="设置默认城市" />
+</PreferenceScreen>
