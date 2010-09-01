@@ -7,6 +7,8 @@
 extern "C" {
 #endif
 
+void Java_com_whtr_example_skiademo_SkiaView_renderHello(JNIEnv *env, jobject thizz, jobject canvas);
+
 #ifdef __cplusplus
 }
 #endif
