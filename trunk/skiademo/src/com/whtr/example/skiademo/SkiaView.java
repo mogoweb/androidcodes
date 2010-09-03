@@ -2,6 +2,7 @@ package com.whtr.example.skiademo;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 
@@ -21,6 +22,8 @@ public class SkiaView extends View
     public SkiaView(Context context)
     {
         super(context);
+        
+        setBackgroundColor(Color.WHITE);
     }
     
     public SkiaView(Context context, int sampleId)
