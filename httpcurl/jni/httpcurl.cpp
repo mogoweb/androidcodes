@@ -8,6 +8,7 @@
 #include <curl/curl.h>
 
 #include "fopen.h"
+#include "lib504.h"
 
 /* curl calls this routine to get more data */
 static size_t write_callback(char *buffer, size_t size, size_t nitems, void *userp)
@@ -112,5 +113,17 @@ JNIEXPORT void JNICALL Java_com_whtr_example_httpcurl_MainActivity_loadUrl(JNIEn
 
 
 	LOGD("leaving jni loadUrl");
+}
+
+JNIEXPORT void JNICALL Java_com_whtr_example_httpcurl_MainActivity_multiLoadUrl(JNIEnv *env, jobject thizz, jstring urlstr)
+{
+	LOGD("entering jni multiLoadUrl");
+
+	const char* url = env->GetStringUTFChars(urlstr, 0);
+	LOGD("url: %s", url);
+	test(url);
+	env->ReleaseStringUTFChars(urlstr, url);
+
+	LOGD("leaving jni multiLoadUrl");
 }
 
