@@ -6,6 +6,7 @@ extern "C" {
 #endif
 
 JNIEXPORT void JNICALL Java_com_whtr_example_httpcurl_MainActivity_loadUrl(JNIEnv *env, jobject thizz, jstring url);
+JNIEXPORT void JNICALL Java_com_whtr_example_httpcurl_MainActivity_multiLoadUrl(JNIEnv *env, jobject thizz, jstring url);
 
 #ifdef __cplusplus
 }
