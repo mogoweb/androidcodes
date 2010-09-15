@@ -28,8 +28,8 @@ JNIEXPORT void JNICALL Java_com_whtr_example_httpcurl_MainActivity_loadUrl(JNIEn
 #endif
 	const char* url = env->GetStringUTFChars(urlstr, 0);
 	LOGD("url: %s", url);
-	//~loadUrl(url);
-	resolveHost(url);
+	loadUrl(url);
+	//resolveHost(url);
 #if 0
 	curl_easy_setopt(handle, CURLOPT_URL, url);
 	curl_easy_setopt(handle, CURLOPT_VERBOSE, 1L);
