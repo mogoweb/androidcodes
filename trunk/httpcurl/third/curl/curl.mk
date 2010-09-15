@@ -1,8 +1,8 @@
 
 LIB=libcurl.a
 
-SRCROOT=..
-ANDROID_SOURCE=$(HOME)/android/source/eclair
+SRCROOT=../..
+ANDROID_SOURCE=$(HOME)/android/source/cupcake
 
 RM=rm -f
 RM_DIR=rm -rf
@@ -22,14 +22,11 @@ INCLUDES=-I$(ANDROID_SOURCE)/external/icu4c/common/ -I$(ANDROID_SOURCE)/external
 DEFINES=-D__ANDROID__ -DANDROID -I. \
 	-I$(SRCROOT)/third/curl/include
 
-CXX=$(ANDROID_SOURCE)/prebuilt/linux-x86/toolchain/arm-eabi-4.4.0/bin/arm-eabi-g++
-#CXX=$(ANDROID_SOURCE)/prebuilt/linux-x86/toolchain/arm-eabi-4.2.1/bin/arm-eabi-g++
+CXX=$(ANDROID_SOURCE)/prebuilt/linux-x86/toolchain/arm-eabi-4.2.1/bin/arm-eabi-g++
 CXXFLAGS= -pipe -fpermissive -fno-short-enums -fno-exceptions -Wno-multichar -msoft-float -fstack-protector -fpic -ffunction-sections -fdata-sections -march=armv5te -mtune=xscale -D__ARM_ARCH_5__ -D__ARM_ARCH_5T__ -D__ARM_ARCH_5TE__ -mthumb-interwork -fmessage-length=0 -W -Wall -Wno-unused -Wstrict-aliasing=2 -finline-functions -fgcse-after-reload -frerun-cse-after-loop -frename-registers -fvisibility-inlines-hidden -fomit-frame-pointer -fno-strict-aliasing -finline-limit=64 -fno-rtti -MD -funwind-tables -include $(ANDROID_SOURCE)/system/core/include/arch/linux-arm/AndroidConfig.h -include $(ANDROID_SOURCE)/bionic/libc/include/string.h -mthumb -D__MARM_THUMB__ -DTHUMB  $(INCLUDES) $(DEFINES)
-CC=$(ANDROID_SOURCE)/prebuilt/linux-x86/toolchain/arm-eabi-4.4.0/bin/arm-eabi-gcc
-#CC=$(ANDROID_SOURCE)/prebuilt/linux-x86/toolchain/arm-eabi-4.2.1/bin/arm-eabi-gcc
-CCFLAGS = -pipe -O2 -fno-short-enums $(INCLUDES) $(DEFINES) -include $(SRCROOT)/third/curl/curl_config_android.h
-LD=$(ANDROID_SOURCE)/prebuilt/linux-x86/toolchain/arm-eabi-4.4.0/bin/arm-eabi-g++
-#LD=$(ANDROID_SOURCE)/prebuilt/linux-x86/toolchain/arm-eabi-4.2.1/bin/arm-eabi-g++
+CC=$(ANDROID_SOURCE)/prebuilt/linux-x86/toolchain/arm-eabi-4.2.1/bin/arm-eabi-gcc
+CCFLAGS = -pipe -O2 -fno-short-enums $(INCLUDES) $(DEFINES) -include $(SRCROOT)/third/curl/lib/curl_config.h
+LD=$(ANDROID_SOURCE)/prebuilt/linux-x86/toolchain/arm-eabi-4.2.1/bin/arm-eabi-g++
 LDFLAGS=-nostdlib -Bdynamic -Wl,-T,$(ANDROID_SOURCE)/build/core/armelf.x -Wl,-dynamic-linker,/system/bin/linker -Wl,--gc-sections -Wl,-z,nocopyreloc -Wl,-rpath-link=$(ANDROID_SOURCE)/out/target/product/generic/obj/lib -lc -lstdc++ -lm -Wl,--no-undefined $(ANDROID_SOURCE)/out/target/product/generic/obj/lib/crtbegin_dynamic.o $(ANDROID_SOURCE)/out/target/product/generic/obj/lib/crtend_android.o
 
 SRCS=base64.c connect.c content_encoding.c cookie.c curl_addrinfo.c curl_fnmatch.c \
