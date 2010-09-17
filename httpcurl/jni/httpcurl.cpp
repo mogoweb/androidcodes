@@ -8,7 +8,7 @@
 #include <curl/curl.h>
 
 #include "fopen.h"
-#include "lib504.h"
+#include "lib507.h"
 
 /* curl calls this routine to get more data */
 static size_t write_callback(char *buffer, size_t size, size_t nitems, void *userp)

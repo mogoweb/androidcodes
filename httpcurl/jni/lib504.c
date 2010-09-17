@@ -127,6 +127,7 @@ int test(const char *URL) {
 			CURLMsg *msg = curl_multi_info_read(m, &numleft);
 			fprintf(stderr, "Expected: not running\n");
 			LOGD("Expected: not running\n");
+			LOGD("msg=%p, numleft=%d", msg, numleft);
 			if (msg && !numleft)
 				res = 100; /* this is where we should be */
 			else
