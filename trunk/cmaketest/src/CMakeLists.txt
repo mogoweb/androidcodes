@@ -1,6 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
 project (Tutorial)
 
+set (CMAKE_VERBOSE_MAKEFILE "true")
 set (CMAKE_REQUIRED_LIBRARIES "m")
 
 # does this system provide the log and exp functions?
@@ -21,7 +22,8 @@ configure_file (
 
 # add the binary tree to the search path for include files
 # so that we will find TutorialConfig.h
-include_directories("${PROJECT_BINARY_DIR}")
+message ("PROJECT_BINARY_DIR=${PROJECT_BINARY_DIR}")
+include_directories ("${PROJECT_BINARY_DIR}")
 
 # should we use our own math functions?
 option (USE_MYMATH 
@@ -56,3 +58,4 @@ set_tests_properties (TutorialComp25
 enable_testing ()
 
 include ("../script/android.cmake")
+
