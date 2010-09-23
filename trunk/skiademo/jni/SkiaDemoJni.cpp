@@ -30,7 +30,17 @@ void Java_com_whtr_example_skiademo_SkiaView_renderText(JNIEnv *env, jobject thi
 	}
 
 	SkPaint paint;
-	paint.setColor(SK_ColorRED);
-	canv->drawText("hello skia", 10, 20, 20, paint);
+	char text[256] = {0};
+	paint.setColor(SK_ColorBLACK);
+	strcpy(text, "未加反锯齿的中文文字");
+	canv->drawText(text, strlen(text), 20, 20, paint);
+
+	strcpy(text, "增加反锯齿处理的中文文字");
+	paint.setAntiAlias(true);
+	canv->drawText(text, strlen(text), 20, 60, paint);
+
+	strcpy(text, "增加subpixel处理的中文文字");
+	paint.setSubpixelText(true);
+	canv->drawText(text, strlen(text), 20, 100, paint);
 
 }
