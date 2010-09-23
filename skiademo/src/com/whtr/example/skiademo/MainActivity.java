@@ -14,8 +14,8 @@ import android.widget.SimpleAdapter;
 
 public class MainActivity extends ListActivity {
     
-    private String[] mSamplesTitle = {"Hello Skia", };
-    private int[] mSamplesId = {0, };
+    private String[] mSamplesTitle = {"Hello Skia", "Draw Text"};
+    private int[] mSamplesId = {0, 1};
     
     /** Called when the activity is first created. */
     @Override
