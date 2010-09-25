@@ -5,6 +5,5 @@ set (CMAKE_VERBOSE_MAKEFILE "true")
 
 # add the executable
 add_library(test SHARED TestJni.cpp)
-
-#include ("../script/android.cmake")
+target_link_libraries(test log)
 
