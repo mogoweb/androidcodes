@@ -1,5 +1,5 @@
 export ANDROID_NDK_ROOT="$HOME/android/android-ndk-r4"
-export ANDROID_GCC_WRAPPERS="$HOME/android/scripts"
+export ANDROID_GCC_WRAPPERS="$HOME/android/ex/androidcodes/cmaketest"
 export PATH="$ANDROID_GCC_WRAPPERS:$ANDROID_NDK_ROOT/build/prebuilt/linux-x86/arm-eabi-4.2.1/bin/:$PATH"
 export CROSS_PREFIX="arm-eabi-"
 export SYSROOT="$ANDROID_NDK_ROOT/build/platforms/android-4/arch-arm"
