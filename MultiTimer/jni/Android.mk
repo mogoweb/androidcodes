@@ -15,8 +15,8 @@ LOCAL_C_INCLUDES := $(MY_ANDROID_SOURCE)/frameworks/base/core/jni/android/graphi
 					$(MY_ANDROID_SOURCE)/system/core/include \
 					$(MY_ANDROID_SOURCE)/external/icu4c/common
 
-LOCAL_SRC_FILES := timer.c timer_jni.cpp
-LOCAL_LDLIBS := -llog -landroid_runtime -lgcc -lcutils \
+LOCAL_SRC_FILES := timer.cpp timer_jni.cpp
+LOCAL_LDLIBS := -llog -landroid_runtime -lgcc -lcutils -lutils \
 	-L$(MY_ANDROID_SOURCE)/out/target/product/generic/system/lib
 
 include $(BUILD_SHARED_LIBRARY)
