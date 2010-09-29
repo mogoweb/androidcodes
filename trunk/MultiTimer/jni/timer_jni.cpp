@@ -13,7 +13,7 @@ JNIEXPORT void JNICALL Java_com_whtr_example_mtimer_MainActivity_startTimer(JNIE
     timer_list_init();
     start_tick_and_timer_check();
 
-    VTOP_TimerId timer = create_rel_timer(func, TIMEOUT_AUTO_FREE);
+    VTOP_TimerId timer = create_rel_timer(func, TIMEOUT_ONE_SHOT);
     start_rel_timer(timer, 100 * 1000, 0);
 
     LOGD("leaving JNI startTimer");

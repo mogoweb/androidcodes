@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
+#include <sys/select.h>
 #include "utils/threads.h"
 
 static timer_list_t * z_timer_list = 0;
@@ -11,6 +12,8 @@ static utime_t* z_ujiffies = 0;
 static bool z_is_tick_start = false;
 static android_thread_id_t z_thread_tick;
 static android_thread_id_t z_thread_check;
+
+static android::Mutex z_mutex;
 
 static int is_timer_list_empty(void)
 {
@@ -57,6 +60,8 @@ void timer_list_destroy(void)
 
 VTOP_TimerId create_rel_timer(pfTimeoutCallback callback, int flag)
 {
+    android::Mutex::Autolock lock(z_mutex);
+
 	if (z_timer_list == 0 || z_ujiffies == 0)
 	{
 		if (timer_list_init() < 0)
@@ -129,7 +134,9 @@ int stop_rel_timer(VTOP_TimerId timer_id)
 
 int free_rel_timer(VTOP_TimerId timer_id)
 {
-	assert(timer_id != 0 && timer_id->ptr != 0 && z_timer_list->element_count != 0);
+    assert(timer_id != 0 && timer_id->ptr != 0 && z_timer_list->element_count != 0);
+
+    android::Mutex::Autolock lock(z_mutex);
 
     if (timer_id == 0 || timer_id->ptr == 0 || z_timer_list->element_count == 0)
 	{
@@ -161,7 +168,7 @@ int free_rel_timer(VTOP_TimerId timer_id)
 /**
  * start to tick
  */
-static void* start_tick(void* param)
+static int start_tick(void* param)
 {
     z_is_tick_start = 1;
 
@@ -184,7 +191,7 @@ static void* start_tick(void* param)
 /**
  * check whether there is any timout event happen
  */
-static void* timer_check(void* param)
+static int timer_check(void* param)
 {
     while (!z_is_tick_start)
     {
@@ -200,6 +207,7 @@ static void* timer_check(void* param)
 	{
 		tv = o_tv;
 		select(0, 0, 0, 0, &tv);
+        android::Mutex::Autolock lock(z_mutex);
 		timer_node_t * ptmp = z_timer_list->head;
 		for (; ptmp; ptmp = ptmp->next)
 		{
@@ -227,12 +235,12 @@ static void* timer_check(void* param)
 			}
 		}
 	}
+
+    return 0;
 }
 
 void start_tick_and_timer_check(void)
 {
-    //~androidCreateThread(start_tick, 0);
-    //~androidCreateThread(timer_check, 0);
-    pthread_create(&z_thread_tick, 0, start_tick, 0);
-    pthread_create(&z_thread_check, 0, timer_check, 0);
+    androidCreateThread(start_tick, 0);
+    androidCreateThread(timer_check, 0);
 }
