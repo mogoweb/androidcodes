@@ -127,3 +127,15 @@ JNIEXPORT void JNICALL Java_com_whtr_example_httpcurl_MainActivity_multiLoadUrl(
 	LOGD("leaving jni multiLoadUrl");
 }
 
+JNIEXPORT void JNICALL Java_com_whtr_example_httpcurl_MainActivity_addUrl(JNIEnv *env, jobject thizz, jstring urlstr)
+{
+	LOGD("entering jni addUrl");
+
+	const char* url = env->GetStringUTFChars(urlstr, 0);
+	LOGD("url: %s", url);
+	//~addTask(url);
+	env->ReleaseStringUTFChars(urlstr, url);
+
+	LOGD("leaving jni addUrl");
+}
+
