@@ -1,0 +1,36 @@
+#you may override this if you move the build
+#just define it before including this or on the command line - or with
+#an environment variable
+#this points to the root of the curltest trunk - where the original curltest 
+#sources are - with modules 3rparty ...
+ifndef CURLTEST_ROOT
+CURLTEST_ROOT := ${curltest_root}
+endif
+
+#you may override this same as above
+#this points to the actually directory that you built curltest for android from
+#maybe in under curltest/android/build
+ifndef CURLTEST_BUILD_ROOT
+CURLTEST_BUILD_ROOT := ${CMAKE_BINARY_DIR}
+endif
+
+CURLTEST_INCLUDES := ${android_module_include_dirs}
+
+ANDROID_CURLTEST_INCLUDES := $(CURLTEST_ROOT)/android/java/jni
+
+ARMOBJS := local/armeabi
+ARMOBJS_V7A := local/armeabi-v7a
+
+CURLTEST_LIB_DIRS := -L$(CURLTEST_BUILD_ROOT)/obj/$(ARMOBJS_V7A) \
+    -L$(CURLTEST_BUILD_ROOT)/obj/$(ARMOBJS) -L$(CURLTEST_BUILD_ROOT)/bin/ndk/$(ARMOBJS) \
+    -L$(CURLTEST_BUILD_ROOT)/bin/ndk/$(ARMOBJS_V7A)
+
+ANDROID_CURLTEST_LIB_DIRS := -L$(CURLTEST_ROOT)/android/java/libs/armeabi-v7a \
+    -L$(CURLTEST_ROOT)/android/java/libs/armeabi
+
+#order of linking very important ---- may have stuff out of order here, but
+#important that modules that are more dependent come first...
+
+CURLTEST_LIBS := $(CURLTEST_LIB_DIRS) -lcurl 
+ANDROID_CURLTEST_LIBS := $(ANDROID_CURLTEST_LIB_DIRS) -landroid-curltest
+

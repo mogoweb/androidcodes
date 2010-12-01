@@ -1,0 +1,5 @@
+include android-curltest.mk
+include modules/Android.mk
+include third/Android.mk
+#include zlib-android/Android.mk
+
